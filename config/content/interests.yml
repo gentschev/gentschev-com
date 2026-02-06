@@ -1,0 +1,51 @@
+- name: GiveWell
+  url: https://www.givewell.org
+  type: organization
+
+- name: Tamalpa Runners
+  url: https://tamalparunners.org
+  type: organization
+
+- name: Stewart Brand
+  url: https://en.wikipedia.org/wiki/Stewart_Brand
+  type: person
+
+- name: Kevin Kelly
+  url: https://kk.org
+  type: person
+
+- name: Our World in Data
+  url: https://ourworldindata.org
+  type: resource
+
+- name: Long Now Foundation
+  url: https://longnow.org
+  type: organization
+
+- name: Marin County Open Space
+  url: https://www.marincountyparks.org
+  type: place
+
+- name: Clay Shirky
+  url: https://en.wikipedia.org/wiki/Clay_Shirky
+  type: person
+
+- name: Seth Godin
+  url: https://seths.blog
+  type: person
+
+- name: Effective Altruism
+  url: https://www.effectivealtruism.org
+  type: movement
+
+- name: Solarpunk
+  url: https://en.wikipedia.org/wiki/Solarpunk
+  type: aesthetic
+
+- name: Mount Tamalpais
+  url: https://www.parks.ca.gov/?page_id=471
+  type: place
+
+- name: Muir Woods
+  url: https://www.nps.gov/muwo/index.htm
+  type: place

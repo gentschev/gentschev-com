@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || "Gentschev" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Projects, writing, and interests from Gentschev">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Gentschev">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <%# Open Graph %>
+    <meta property="og:title" content="Gentschev">
+    <meta property="og:description" content="Projects, writing, and interests">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gentschev.com">
+
+    <%# Twitter Card %>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gentschev">
+    <meta name="twitter:title" content="Gentschev">
+    <meta name="twitter:description" content="Projects, writing, and interests">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Google Fonts - Inter %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-cream text-ink antialiased">
+    <main>
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color Palette - Nature-inspired */
+  --color-forest: #2d5a45;
+  --color-ocean: #2b4f60;
+  --color-cream: #faf8f5;
+  --color-coral: #e07a5f;
+  --color-amber: #d4a574;
+  --color-ink: #1a1a1a;
+
+  /* Font Family */
+  --font-family-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Base Styles */
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-family-sans);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-coral);
+  color: white;
+}

@@ -1,0 +1,14 @@
+- name: Homeschool Tools
+  url: https://homeschooltools.net
+  description: Homeschool curriculum directory
+  status: live
+
+- name: Harvest Tales
+  url: null
+  description: Enriched wine descriptions for wine shops
+  status: coming_soon
+
+- name: Division Eight
+  url: null
+  description: Spec and submittal matching for construction openings
+  status: coming_soon
