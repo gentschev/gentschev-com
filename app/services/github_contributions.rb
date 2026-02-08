@@ -1,0 +1,90 @@
+class GithubContributions
+  CACHE_KEY_PREFIX = "github_contributions"
+  CACHE_DURATION = 6.hours
+  GRAPHQL_URL = "https://api.github.com/graphql"
+
+  def self.for_user(username)
+    new(username).fetch
+  end
+
+  def initialize(username)
+    @username = username
+  end
+
+  def fetch
+    return [] unless github_token.present?
+
+    Rails.cache.fetch(cache_key, expires_in: CACHE_DURATION) do
+      fetch_from_api
+    end
+  rescue => e
+    Rails.logger.error("GitHub contributions error: #{e.message}")
+    []
+  end
+
+  private
+
+  def cache_key
+    "#{CACHE_KEY_PREFIX}/#{@username}"
+  end
+
+  def github_token
+    ENV["GITHUB_TOKEN"]
+  end
+
+  def fetch_from_api
+    require "net/http"
+    require "json"
+
+    uri = URI(GRAPHQL_URL)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+
+    request = Net::HTTP::Post.new(uri)
+    request["Authorization"] = "Bearer #{github_token}"
+    request["Content-Type"] = "application/json"
+    request.body = { query: graphql_query }.to_json
+
+    response = http.request(request)
+
+    if response.is_a?(Net::HTTPSuccess)
+      parse_response(JSON.parse(response.body))
+    else
+      Rails.logger.error("GitHub API error: #{response.code} - #{response.body}")
+      []
+    end
+  end
+
+  def graphql_query
+    <<~GRAPHQL
+      query {
+        user(login: "#{@username}") {
+          contributionsCollection {
+            contributionCalendar {
+              weeks {
+                contributionDays {
+                  date
+                  contributionCount
+                }
+              }
+            }
+          }
+        }
+      }
+    GRAPHQL
+  end
+
+  def parse_response(data)
+    weeks = data.dig("data", "user", "contributionsCollection", "contributionCalendar", "weeks")
+    return [] unless weeks
+
+    weeks.flat_map do |week|
+      week["contributionDays"].map do |day|
+        {
+          date: Date.parse(day["date"]),
+          count: day["contributionCount"]
+        }
+      end
+    end
+  end
+end

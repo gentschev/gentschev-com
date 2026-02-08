@@ -2,6 +2,11 @@
 <header class="py-6 px-6 md:px-10 border-b border-ink/10">
   <div class="max-w-5xl mx-auto">
     <h1 class="text-xl font-medium text-ink">Greg Gentschev</h1>
+    <% if @github_contributions.present? %>
+      <div class="mt-3" data-controller="contributions-chart">
+        <%= contributions_line_chart(@github_contributions) %>
+      </div>
+    <% end %>
   </div>
 </header>
 

@@ -30,3 +30,16 @@ html {
   background-color: var(--color-coral);
   color: white;
 }
+
+/* Contributions chart tooltip transition */
+.contributions-chart [data-contributions-chart-target="tooltip"] {
+  transition: opacity 0.15s ease-in-out;
+}
+
+.contributions-chart [data-contributions-chart-target="tooltip"].hidden {
+  opacity: 0;
+}
+
+.contributions-chart [data-contributions-chart-target="tooltip"]:not(.hidden) {
+  opacity: 1;
+}
