@@ -14,9 +14,11 @@ class GithubContributions
   def fetch
     return [] unless github_token.present?
 
-    Rails.cache.fetch(cache_key, expires_in: CACHE_DURATION) do
-      fetch_from_api
-    end
+    Rails.cache.fetch(cache_key, expires_in: CACHE_DURATION, skip_nil: true) do
+      result = fetch_from_api
+      # Don't cache empty results - they indicate a failure
+      result.presence
+    end || []
   rescue => e
     Rails.logger.error("GitHub contributions error: #{e.message}")
     []
