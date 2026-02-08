@@ -43,7 +43,7 @@ Single page with four main sections, alternating layout:
 
 ```
 ┌─────────────────────────────────────────┐
-│              GENTSCHEV                  │  Hero: name, subtle nature backdrop
+│              GENTSCHEV                  │  Hero: name + GitHub contributions chart
 ├───────────────────┬─────────────────────┤
 │  [Nature Image]   │    PROJECTS         │  Image left, content right
 ├───────────────────┼─────────────────────┤
@@ -73,6 +73,13 @@ Recent posts pulled from Substack RSS feed (https://gentschev.substack.com/feed)
 Single organic list without categories — reading, organizations, places, people, tools, etc.
 - Hardcoded for v1
 - Future: Amazon wishlist integration for reading
+
+### GitHub Contributions Chart
+- Displays a smooth SVG line chart of daily contributions in the header
+- Data fetched from GitHub GraphQL API, cached for 6 hours
+- Requires `GITHUB_TOKEN` environment variable with `read:user` scope
+- Renders nothing gracefully if token is missing or API fails
+- Hover/touch tooltips show date and contribution count
 
 ### Social Links
 - Substack: https://gentschev.substack.com/
@@ -112,7 +119,14 @@ app/
 │   └── pages/
 │       └── home.html.erb        # Main single-page layout
 ├── helpers/
+│   ├── charts_helper.rb         # SVG chart generation
 │   └── substack_helper.rb       # RSS fetching/caching
+├── services/
+│   ├── github_contributions.rb  # GitHub API integration
+│   └── substack_feed.rb         # Substack RSS parsing
+├── javascript/controllers/
+│   ├── contributions_chart_controller.js  # Chart tooltips
+│   └── expandable_list_controller.js      # Show more/less
 ├── assets/
 │   └── images/                  # Nature photos/illustrations
 config/
@@ -122,11 +136,20 @@ config/
     └── interests.yml            # Interest list
 ```
 
+## Environment Variables
+
+For local development, create a `.env` file (gitignored):
+```
+GITHUB_TOKEN=ghp_your_token_here
+```
+
+For production (Railway), set `GITHUB_TOKEN` in the environment variables dashboard.
+
 ## Commands
 
 ```bash
 # Development
-bin/dev                          # Start Rails server with Tailwind watcher
+bin/dev                          # Start Rails server (loads .env automatically)
 
 # Deployment
 git push origin main             # Railway auto-deploys from main

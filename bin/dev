@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+# Load local environment variables if .env exists
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
+
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
 
