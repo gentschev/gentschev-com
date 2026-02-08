@@ -11,4 +11,17 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "pages#home"
+
+  # Temporary debug endpoint - remove after debugging
+  get "debug/github" => ->(env) {
+    token_present = ENV['GITHUB_TOKEN'].present?
+    token_preview = ENV['GITHUB_TOKEN'].to_s[0..10] + "..." if token_present
+    curl_exists = system("which curl > /dev/null 2>&1")
+
+    [200, {"Content-Type" => "text/plain"}, [
+      "GITHUB_TOKEN present: #{token_present}\n",
+      "Token preview: #{token_preview}\n",
+      "Curl available: #{curl_exists}\n"
+    ]]
+  }
 end
