@@ -4,9 +4,9 @@
   status: live
 
 - name: Harvest Tales
-  url: null
+  url: https://harvest-tales.com/
   description: Enriched wine descriptions for wine shops
-  status: coming_soon
+  status: live
 
 - name: Division Eight
   url: https://diveightapp.com/
