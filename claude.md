@@ -1,5 +1,7 @@
 # gentschev.com
 
+[![CI](https://github.com/gentschev/gentschev-com/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/gentschev/gentschev-com/actions/workflows/ci.yml)
+
 Personal website for Gentschev — a centralized hub for projects, writing, and interests.
 
 ## Project Overview
@@ -145,12 +147,37 @@ GITHUB_TOKEN=ghp_your_token_here
 
 For production (Railway), set `GITHUB_TOKEN` in the environment variables dashboard.
 
+## CI / Continuous Integration
+
+GitHub Actions runs on every push to `main` and on pull requests (`.github/workflows/ci.yml`). **CI failures block Railway deploys** — Railway only deploys commits that pass.
+
+### Jobs
+
+| Job | What it checks |
+|-----|---------------|
+| `scan_ruby` | Brakeman static security analysis |
+| `scan_js` | `importmap audit` for JS dependency vulnerabilities |
+| `lint` | RuboCop style enforcement |
+| `test` | Rails unit/integration tests |
+| `system-test` | Rails system tests (Capybara) |
+
+### Brakeman Policy
+
+Prefer fixing code over adding entries to `config/brakeman.ignore`. Ignore entries hide real issues and rot over time. If a warning is genuinely a false positive, fix the code pattern that triggers it (e.g., use `Net::HTTP` instead of shelling out to `curl`).
+
 ## Commands
 
 ```bash
 # Development
 bin/dev                          # Start Rails server (loads .env automatically)
 
+# CI / Quality (run before pushing)
+bin/ci                           # Run full CI suite locally (same checks as GitHub Actions)
+bin/rubocop                      # Lint Ruby code
+bin/brakeman --no-pager          # Security scan (use bundle exec to skip --ensure-latest)
+bin/rails test                   # Run unit/integration tests
+bin/rails test:system            # Run system tests
+
 # Deployment
-git push origin main             # Railway auto-deploys from main
+git push origin main             # Railway auto-deploys from main (CI must pass)
 ```
