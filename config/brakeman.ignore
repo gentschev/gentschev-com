@@ -1,0 +1,15 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "e5dac5b8bb9c009c36216c2d4d705e198a23171ab87920cd0f5a039a2c1785ec",
+      "code": "Open3.capture3(\"curl\", \"-s\", \"-H\", \"Authorization: Bearer #{github_token}\", \"-H\", \"Content-Type: application/json\", \"-d\", { :query => graphql_query }.to_json, \"https://api.github.com/graphql\")",
+      "message": "Possible command injection",
+      "file": "app/services/github_contributions.rb",
+      "line": 45,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "note": "Open3.capture3 uses array form (no shell), so token interpolation is safe"
+    }
+  ],
+  "updated": "2026-02-28 21:51:08 -0800",
+  "brakeman_version": "8.0.2"
+}

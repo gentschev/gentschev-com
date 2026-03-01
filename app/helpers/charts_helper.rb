@@ -11,7 +11,7 @@ module ChartsHelper
     chart_height = height - (padding_y * 2)
 
     max_count = contributions.map { |c| c[:count] }.max || 1
-    max_count = [max_count, 1].max # Avoid division by zero
+    max_count = [ max_count, 1 ].max # Avoid division by zero
 
     # Calculate points
     points = contributions.each_with_index.map do |contribution, index|
@@ -91,7 +91,7 @@ module ChartsHelper
         data: { contributions_chart_target: "tooltip" }
       )
 
-      safe_join([svg, tooltip])
+      safe_join([ svg, tooltip ])
     end
   end
 
@@ -107,10 +107,10 @@ module ChartsHelper
     points.each_with_index do |_point, i|
       next if i.zero?
 
-      p0 = points[[i - 2, 0].max]
+      p0 = points[[ i - 2, 0 ].max]
       p1 = points[i - 1]
       p2 = points[i]
-      p3 = points[[i + 1, points.length - 1].min]
+      p3 = points[[ i + 1, points.length - 1 ].min]
 
       # Catmull-Rom to cubic Bezier control points
       tension = 0.3
