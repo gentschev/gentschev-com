@@ -35,23 +35,27 @@ class GithubContributions
   end
 
   def fetch_from_api
+    require "net/http"
+    require "uri"
     require "json"
-    require "open3"
 
-    body = { query: graphql_query }.to_json
+    uri = URI(GRAPHQL_URL)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.open_timeout = 5
+    http.read_timeout = 10
 
-    stdout, stderr, status = Open3.capture3(
-      "curl", "-s",
-      "-H", "Authorization: Bearer #{github_token}",
-      "-H", "Content-Type: application/json",
-      "-d", body,
-      GRAPHQL_URL
-    )
+    request = Net::HTTP::Post.new(uri)
+    request["Authorization"] = "Bearer #{github_token}"
+    request["Content-Type"] = "application/json"
+    request.body = { query: graphql_query }.to_json
 
-    if status.success? && stdout.present?
-      parse_response(JSON.parse(stdout))
+    response = http.request(request)
+
+    if response.is_a?(Net::HTTPSuccess)
+      parse_response(JSON.parse(response.body))
     else
-      Rails.logger.error("GitHub API error: #{stderr}")
+      Rails.logger.error("GitHub API error: #{response.code} #{response.message}")
       []
     end
   end
