@@ -48,7 +48,7 @@ class GithubContributions
     request = Net::HTTP::Post.new(uri)
     request["Authorization"] = "Bearer #{github_token}"
     request["Content-Type"] = "application/json"
-    request.body = { query: graphql_query }.to_json
+    request.body = { query: graphql_query, variables: { username: @username } }.to_json
 
     response = http.request(request)
 
@@ -62,8 +62,8 @@ class GithubContributions
 
   def graphql_query
     <<~GRAPHQL
-      query {
-        user(login: "#{@username}") {
+      query($username: String!) {
+        user(login: $username) {
           contributionsCollection {
             contributionCalendar {
               weeks {

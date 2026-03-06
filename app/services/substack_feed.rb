@@ -18,7 +18,7 @@ class SubstackFeed
     require "rss"
     require "open-uri"
 
-    feed = RSS::Parser.parse(URI.open(FEED_URL))
+    feed = RSS::Parser.parse(URI.open(FEED_URL, open_timeout: 5, read_timeout: 10))
     feed.items.map do |item|
       {
         title: item.title,
