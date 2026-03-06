@@ -12,3 +12,7 @@
   url: https://diveightapp.com/
   description: Spec and submittal matching for construction openings
   status: live
+
+- name: Build By Right
+  description: Zoning analysis, state law pathways, and pro forma projections for any California parcel
+  status: coming_soon
