@@ -121,11 +121,11 @@ app/
 │   └── pages/
 │       └── home.html.erb        # Main single-page layout
 ├── helpers/
-│   ├── charts_helper.rb         # SVG chart generation
-│   └── substack_helper.rb       # RSS fetching/caching
+│   ├── application_helper.rb    # Shared view helpers
+│   └── charts_helper.rb         # SVG chart generation
 ├── services/
 │   ├── github_contributions.rb  # GitHub API integration
-│   └── substack_feed.rb         # Substack RSS parsing
+│   └── substack_feed.rb         # Substack RSS fetching/parsing/caching
 ├── javascript/controllers/
 │   ├── contributions_chart_controller.js  # Chart tooltips
 │   └── expandable_list_controller.js      # Show more/less
@@ -164,6 +164,12 @@ GitHub Actions runs on every push to `main` and on pull requests (`.github/workf
 ### Brakeman Policy
 
 Prefer fixing code over adding entries to `config/brakeman.ignore`. Ignore entries hide real issues and rot over time. If a warning is genuinely a false positive, fix the code pattern that triggers it (e.g., use `Net::HTTP` instead of shelling out to `curl`).
+
+### Testing Notes
+
+- Service tests live in `test/services/`, helper tests in `test/helpers/`.
+- **Minitest 6 no longer bundles `minitest/mock`**, so `Object#stub` / `Minitest::Mock` are unavailable. Tests that need to isolate network calls swap the target method with `define_singleton_method` and restore it in an `ensure` block (see `test/services/github_contributions_test.rb` and `substack_feed_test.rb`). Add the `minitest-mock` gem if fuller mocking is ever needed.
+- The test environment uses `:null_store` for the cache, so tests that exercise caching behavior temporarily swap in an `ActiveSupport::Cache::MemoryStore`.
 
 ## Commands
 
