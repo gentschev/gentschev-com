@@ -42,6 +42,15 @@ class ChartsHelperTest < ActionView::TestCase
     refute_includes html, "NaN"
   end
 
+  test "handles a single-point series without producing NaN coordinates" do
+    single = [ { date: Date.new(2026, 1, 1), count: 4 } ]
+
+    html = contributions_line_chart(single)
+
+    assert_includes html, "<svg"
+    refute_includes html, "NaN"
+  end
+
   private
 
   def sample_contributions

@@ -93,7 +93,7 @@ class GithubContributionsTest < ActiveSupport::TestCase
     assert_equal [], result
   end
 
-  test "returns empty array and logs when the request raises" do
+  test "returns empty array when the HTTP client raises" do
     result = with_http(->(*) { raise "boom" }) do
       GithubContributions.for_user("gentschev")
     end
