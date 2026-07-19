@@ -13,9 +13,12 @@ module ChartsHelper
     max_count = contributions.map { |c| c[:count] }.max || 1
     max_count = [ max_count, 1 ].max # Avoid division by zero
 
-    # Calculate points
+    # Calculate points. Guard the denominator so a single-point series
+    # doesn't divide by zero (which would yield NaN coordinates).
+    span = [ contributions.length - 1, 1 ].max
+
     points = contributions.each_with_index.map do |contribution, index|
-      x = padding_x + (index.to_f / (contributions.length - 1)) * chart_width
+      x = padding_x + (index.to_f / span) * chart_width
       y = padding_y + chart_height - (contribution[:count].to_f / max_count) * chart_height
       { x: x, y: y, date: contribution[:date], count: contribution[:count] }
     end
