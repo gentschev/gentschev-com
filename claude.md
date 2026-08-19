@@ -89,6 +89,30 @@ Single organic list without categories — reading, organizations, places, peopl
 - GitHub: https://github.com/gentschev
 - LinkedIn: https://www.linkedin.com/in/gentschev/
 
+### Hosted Documents
+Standalone PDFs served at short, branded URLs, so documents can be shared
+directly rather than pointing people at LinkedIn or a cloud-storage link.
+Resumes are the first use; the mechanism is general.
+
+- Live at `/resume-ai-agents`. Bare `/resume` redirects to the first entry in the YAML.
+- PDFs live in `resumes/`, **not** `public/`. Anything in `public/` is served with a
+  one-year `cache-control` (see `config/environments/production.rb`), which would pin a
+  stale document in visitors' browsers long after it was replaced. `ResumesController`
+  sets a 15-minute cache instead, so an updated PDF propagates quickly.
+- `X-Robots-Tag: noindex` keeps these out of search results — they're for people who are
+  handed the link, not for discovery.
+- Downloads get the readable `download_name` from the YAML (e.g. `Greg Gentschev Resume -
+  AI Agents.pdf`) rather than the URL slug, while the URL itself stays extensionless.
+- The `/resume` redirect is a **302, not the `redirect()` default of 301** — a permanent
+  redirect is cached indefinitely and would strand people on the old primary variant.
+- Unknown slugs 404. The filename passed to `send_file` is looked up from the config keys
+  and never taken from the URL, which keeps Brakeman's `SendFile` check clean without an
+  ignore entry.
+
+**Adding a variant:** drop the PDF in `resumes/` and add an entry to
+`config/content/resumes.yml`. Routes are generated from that file, so no route or
+controller changes are needed.
+
 ## Development Guidelines
 
 ### Content Management
@@ -114,7 +138,8 @@ Single organic list without categories — reading, organizations, places, peopl
 ```
 app/
 ├── controllers/
-│   └── pages_controller.rb      # Home page
+│   ├── pages_controller.rb      # Home page
+│   └── resumes_controller.rb    # Resume/document PDFs at /resume-<variant>
 ├── views/
 │   ├── layouts/
 │   │   └── application.html.erb
@@ -132,10 +157,13 @@ app/
 ├── assets/
 │   └── images/                  # Nature photos/illustrations
 config/
-├── routes.rb                    # root to pages#home
+├── routes.rb                    # root to pages#home; resume routes from resumes.yml
 └── content/
     ├── projects.yml             # Project definitions
-    └── interests.yml            # Interest list
+    ├── interests.yml            # Interest list
+    └── resumes.yml              # Resume variants (slug, file, download name)
+resumes/                         # Resume PDFs (deliberately not in public/)
+└── ai-agents.pdf
 ```
 
 ## Environment Variables
