@@ -1,0 +1,9 @@
+# Resume variants served at /resume-<slug>.
+#
+# To add a variant: drop the PDF in resumes/ and add an entry here — the route
+# is generated automatically. The first entry is the primary one that bare
+# /resume redirects to. `download_name` is the filename people get when they
+# save the PDF, so keep it human-readable.
+ai-agents:
+  file: ai-agents.pdf
+  download_name: Greg Gentschev Resume - AI Agents.pdf
