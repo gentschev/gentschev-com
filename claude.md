@@ -113,6 +113,15 @@ Resumes are the first use; the mechanism is general.
 `config/content/resumes.yml`. Routes are generated from that file, so no route or
 controller changes are needed.
 
+**Check the PDF's `/Title` metadata first.** Chrome's PDF viewer shows the document's
+embedded Title in its toolbar and ignores the filename we serve, and Google Docs stamps
+the *source* name into that field on export — so a PDF exported from a `.docx` displays
+as "Greg Gentschev Resume - AI Agents.docx" to every visitor. Inspect it with
+`strings resumes/<file>.pdf | grep /Title`. To fix without re-rendering the document,
+patch the string in place at the same byte length (pad with trailing spaces inside the
+object), since `/Title` lives in object 1 near the start of the file and shortening it
+would shift every offset and break the xref table.
+
 ## Development Guidelines
 
 ### Content Management
