@@ -3,6 +3,16 @@
   description: Homeschool curriculum directory
   status: live
 
+- name: Build By Right
+  url: https://buildbyright.com
+  description: Zoning analysis, state law pathways, and pro forma projections for any California parcel
+  status: live
+
+- name: Groundwork
+  url: https://groundwork-ca.up.railway.app/
+  description: Bay Area housing data — how much is getting built, and what it costs to rent or buy
+  status: live
+
 - name: Harvest Tales
   url: https://harvest-tales.com/
   description: Enriched wine descriptions for wine shops
@@ -11,9 +21,4 @@
 - name: Division Eight
   url: https://diveightapp.com/
   description: Spec and submittal matching for construction openings
-  status: live
-
-- name: Build By Right
-  url: https://buildbyright.com
-  description: Zoning analysis, state law pathways, and pro forma projections for any California parcel
   status: live
