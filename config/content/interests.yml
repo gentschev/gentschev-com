@@ -1,51 +1,62 @@
-- name: GiveWell
-  url: https://www.givewell.org
-  type: organization
+# Reads and interests, in the order they appear on the page.
+# Each entry needs a name; url is optional (an entry without one renders as plain text).
+
+- name: Don't Worry About the Vase
+  url: https://substack.com/@thezvi
+
+- name: Barbara Kingsolver
+  url: https://www.goodreads.com/author/show/3541.Barbara_Kingsolver
+
+- name: Borges
+  url: https://www.goodreads.com/author/show/500.Jorge_Luis_Borges
+
+- name: Matt Yglesias
+  url: https://www.slowboring.com/
 
 - name: Tamalpa Runners
-  url: https://tamalparunners.org
-  type: organization
-
-- name: Stewart Brand
-  url: https://en.wikipedia.org/wiki/Stewart_Brand
-  type: person
-
-- name: Kevin Kelly
-  url: https://kk.org
-  type: person
+  url: https://www.tamalparunners.org/
 
 - name: Our World in Data
-  url: https://ourworldindata.org
-  type: resource
+  url: https://ourworldindata.org/
 
-- name: Long Now Foundation
-  url: https://longnow.org
-  type: organization
+- name: Here Comes Everybody
+  url: https://en.wikipedia.org/wiki/Here_Comes_Everybody_(book)
 
-- name: Marin County Open Space
-  url: https://www.marincountyparks.org
-  type: place
+- name: Astral Codex Ten
+  url: https://www.astralcodexten.com/
 
-- name: Clay Shirky
-  url: https://en.wikipedia.org/wiki/Clay_Shirky
-  type: person
+- name: The Argument
+  url: https://www.theargumentmag.com/
 
-- name: Seth Godin
-  url: https://seths.blog
-  type: person
+- name: Noahpinion
+  url: https://www.noahpinion.blog/
 
-- name: Effective Altruism
-  url: https://www.effectivealtruism.org
-  type: movement
+- name: Dwarkesh Podcast
+  url: https://www.dwarkesh.com/
 
-- name: Solarpunk
-  url: https://en.wikipedia.org/wiki/Solarpunk
-  type: aesthetic
+- name: METR
+  url: https://metr.org/
 
-- name: Mount Tamalpais
-  url: https://www.parks.ca.gov/?page_id=471
-  type: place
+- name: Redwood Research
+  url: https://www.redwoodresearch.org/
 
-- name: Muir Woods
-  url: https://www.nps.gov/muwo/index.htm
-  type: place
+- name: Lenny's Newsletter
+  url: https://www.lennysnewsletter.com/
+
+- name: One Useful Thing
+  url: https://www.oneusefulthing.org/
+
+- name: Simon Willison
+  url: https://simonwillison.net/
+
+- name: The Permanent Problem
+  url: https://brinklindsey.substack.com/
+
+- name: GiveWell
+  url: https://www.givewell.org/
+
+- name: The Ocean Cleanup
+  url: https://theoceancleanup.com/
+
+- name: Eric Ries
+  url: https://www.linkedin.com/in/eries/

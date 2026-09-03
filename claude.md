@@ -71,9 +71,10 @@ Recent posts pulled from Substack RSS feed (https://gentschev.substack.com/feed)
 - Cache and refresh periodically
 - Display 3-5 most recent posts with titles and dates
 
-### Interests
-Single organic list without categories — reading, organizations, places, people, tools, etc.
-- Hardcoded for v1
+### Reads and Interests
+Single organic list without categories — newsletters, authors, organizations, podcasts, people, etc.
+- Hardcoded in `config/content/interests.yml`; each entry is a `name` plus an optional `url`
+- List order in the YAML is the display order; the first 10 show, the rest are behind "Show more"
 - Future: Amazon wishlist integration for reading
 
 ### GitHub Contributions Chart
@@ -169,7 +170,7 @@ config/
 ├── routes.rb                    # root to pages#home; resume routes from resumes.yml
 └── content/
     ├── projects.yml             # Project definitions
-    ├── interests.yml            # Interest list
+    ├── interests.yml            # Reads and interests list
     └── resumes.yml              # Resume variants (slug, file, download name)
 resumes/                         # Resume PDFs (deliberately not in public/)
 └── ai-agents.pdf
